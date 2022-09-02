@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class objectpolling : MonoBehaviour
 {
+    // ini membiarkan script menggases tanpa harus GetCommponent dari GameObject
     public static objectpolling SharedInstance;
 
     public List<GameObject> pooledObject;
@@ -49,7 +50,9 @@ public class objectpolling : MonoBehaviour
             objects.transform.rotation = spawner.transform.rotation;
             objects.SetActive(true);
         }
+    }
 
+    private void DestroyinCOntrooler() {
         //to destroy
         objects.SetActive(false);
         // orthis
@@ -61,29 +64,6 @@ public class objectpolling : MonoBehaviour
             } else {
                 Destroy(gameObject);
             }
-        }
-    }
-    ////////////////////////////////////////////////////////////////////////////
-    /// this if you need to incrase amount of objectpooling in runtime condition
-    public bool shoulsExpand = true;
-    public GameObject GetPooledObjectExpand(){
-        for (int i = 0; i < pooledObject.Count; i++)
-        {
-            if (!pooledObject[i].activeInHierarchy)
-            {
-                return pooledObject[i];
-            }
-        }
-        if (shoulsExpand)
-        {
-            GameObject obj = (GameObject)Instantiate(objectToPooled);
-            obj.SetActive(false);
-            pooledObject.Add(obj);
-            return obj;
-        }
-        else
-        {
-            return false;
         }
     }
 }
